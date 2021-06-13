@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+    phpdebug:
+        container_name: phpdebug
+        build:
+            context: ./
+            dockerfile: ./Dockerfile
+        volumes:
+            - ../www:/var/www/html
+        ports:
+            - 8280:80
+    phpdebug5:
+        container_name: phpdebug5
+        build:
+            context: ./
+            dockerfile: ./Dockerfile_php5
+        volumes:
+            - ../www:/var/www/html
+        ports:
+            - 8282:80
+        environment:
+            XDEBUG_CONFIG: remote_host=host.docker.internal remote_port=9003 remote_enable=1
+networks:
+    default:
+        external:
+            name: network-php
